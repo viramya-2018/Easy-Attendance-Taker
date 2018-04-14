@@ -1,5 +1,6 @@
 package com.example.madt_innovative;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -45,6 +46,19 @@ public class frag_home extends Fragment {
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long l) {
+                Intent i;
+                switch(groupPosition){
+                    case 0:
+                        i = new Intent(getContext(), class_a.class);
+                        startActivity(i);
+                        break;
+                    case 1:
+                        //i = new Intent(getContext(), class_b.class);
+                        //startActivity(i);
+                        break;
+
+                }
+
                 Toast.makeText(getContext(), "" + listDataHeader.get(groupPosition) + " clicked!", Toast.LENGTH_LONG).show();
                 return false;
             }
