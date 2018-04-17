@@ -19,13 +19,13 @@ import java.util.List;
  * Created by admin on 12-Mar-18.
  */
 
-public class frag_home extends Fragment {
+public class frag_home extends Fragment implements frag_add.sendData {
 
     private TextView frag_home_trialTextView;
     private expandableListAdapter listAdapter;
     private ExpandableListView expListView;
-    private List<String> listDataHeader;
-    private HashMap<String, List<String>> listDataChild;
+    public List<String> listDataHeader;
+    public HashMap<String, List<String>> listDataChild;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,11 +50,16 @@ public class frag_home extends Fragment {
                 switch(groupPosition){
                     case 0:
                         i = new Intent(getContext(), class_a.class);
+
+                        // Fetch the class student details here and store it to a arraylist
+                        String[] str = {"a","b","c","d"};
+
+                        i.putExtra("student_data", str);
                         startActivity(i);
                         break;
                     case 1:
-                        //i = new Intent(getContext(), class_b.class);
-                        //startActivity(i);
+                        i = new Intent(getContext(), class_a.class);
+                        startActivity(i);
                         break;
 
                 }
@@ -74,12 +79,14 @@ public class frag_home extends Fragment {
         listDataHeader.add("Class A");
         listDataHeader.add("Class B");
         listDataHeader.add("Class C");
+        /*
         listDataHeader.add("Class D");
         listDataHeader.add("Class E");
         listDataHeader.add("Class F");
         listDataHeader.add("Class G");
         listDataHeader.add("Class H");
         listDataHeader.add("Class I");
+        */
 
         // Adding child data
         List<String> classA = new ArrayList<String>();
@@ -94,6 +101,7 @@ public class frag_home extends Fragment {
         classC.add("Section");
         classC.add("Total students");
 
+        /*
         List<String> classD = new ArrayList<String>();
         classD.add("Section");
         classD.add("Total students");
@@ -117,15 +125,26 @@ public class frag_home extends Fragment {
         List<String> classI = new ArrayList<String>();
         classI.add("Section");
         classI.add("Total students");
+        */
+
 
         listDataChild.put(listDataHeader.get(0), classA);
         listDataChild.put(listDataHeader.get(1), classB);
         listDataChild.put(listDataHeader.get(2), classC);
+        /*
         listDataChild.put(listDataHeader.get(3), classD);
         listDataChild.put(listDataHeader.get(4), classE);
         listDataChild.put(listDataHeader.get(5), classF);
         listDataChild.put(listDataHeader.get(6), classG);
         listDataChild.put(listDataHeader.get(7), classH);
         listDataChild.put(listDataHeader.get(8), classI);
+        */
+    }
+
+
+    @Override
+    public void data(String className, ArrayList<String> arrayList) {
+        listDataHeader.add(className);
+        listDataChild.put(listDataHeader.get(listDataHeader.indexOf(className)), arrayList);
     }
 }

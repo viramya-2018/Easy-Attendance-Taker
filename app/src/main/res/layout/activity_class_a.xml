@@ -10,15 +10,21 @@
 
     <TextView
         android:id="@+id/classA_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
-        android:text="Class A"/>
+        android:paddingRight="16dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Class A"
+        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/classA_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
         />
 
 
