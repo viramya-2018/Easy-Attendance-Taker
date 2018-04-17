@@ -3,15 +3,13 @@ package com.example.madt_innovative;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 /**
  * Created by admin on 12-Mar-18.
@@ -19,7 +17,7 @@ import java.util.ArrayList;
 
 public class frag_add extends Fragment implements View.OnClickListener{
 
-    sendData sendData;
+    DBAdapter dbAdapter;
     private TextView frag_add_trialTextView;
     private EditText frag_add_className, frag_add_section, frag_add_numberOfStudents;
     private Button frag_add_butAdd;
@@ -53,21 +51,20 @@ public class frag_add extends Fragment implements View.OnClickListener{
                 String sectionName = frag_add_section.getText().toString();
                 String numOfStudents = frag_add_numberOfStudents.getText().toString();
 
-                ArrayList<String> a = new ArrayList<>();
-                a.add(sectionName);
-                a.add(numOfStudents);
+                dbAdapter = new DBAdapter(getContext());
+                dbAdapter.open();
+                dbAdapter.insertFunction(className, sectionName, numOfStudents);
+                dbAdapter.close();
 
-                Toast.makeText(getContext(), className + sectionName + numOfStudents, Toast.LENGTH_SHORT).show();
-                sendData.data(className,a);
-
-                //frag_home.addData(className, new ArrayList<String>(Arrays.asList(sectionName, numOfStudents)));
-                Toast.makeText(getContext(), "Item will be added", Toast.LENGTH_SHORT).show();
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                if(getFragmentManager().findFragmentById(R.id.fragment_container) != null)
+                    fragmentTransaction.remove(getFragmentManager().findFragmentById(R.id.fragment_container));
+                fragmentTransaction.replace(R.id.fragment_container, new frag_home());
+                fragmentTransaction.commit();
 
                 break;
         }
     }
 
-    public interface sendData{
-        public void data(String className, ArrayList<String> arrayList);
-    }
+
 }

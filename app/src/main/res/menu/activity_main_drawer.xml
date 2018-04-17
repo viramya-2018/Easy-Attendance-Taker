@@ -15,6 +15,12 @@
             android:id="@+id/nav_add"
             android:icon="@drawable/ic_add_box_black_24dp"
             android:title="Add" />
+
+        <item
+            android:id="@+id/nav_add_student"
+            android:icon="@drawable/ic_add_box_black_24dp"
+            android:title="Add students"/>
+
         </menu>
     </item>
     </group>

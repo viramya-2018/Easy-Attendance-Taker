@@ -81,19 +81,22 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             if(getSupportFragmentManager().findFragmentById(R.id.fragment_container) != null)
                 fragmentTransaction.remove(getSupportFragmentManager().findFragmentById(R.id.fragment_container));
             fragmentTransaction.replace(R.id.fragment_container, new frag_home());
             fragmentTransaction.commit();
         }else if (id == R.id.nav_add) {
-            Toast.makeText(this, "Add", Toast.LENGTH_SHORT).show();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            if(getSupportFragmentManager().findFragmentById(R.id.fragment_container) != null)
+            if (getSupportFragmentManager().findFragmentById(R.id.fragment_container) != null)
                 fragmentTransaction.remove(getSupportFragmentManager().findFragmentById(R.id.fragment_container));
-
             fragmentTransaction.replace(R.id.fragment_container, new frag_add());
+            fragmentTransaction.commit();
+        }else if(id == R.id.nav_add_student){
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            if (getSupportFragmentManager().findFragmentById(R.id.fragment_container) != null)
+                fragmentTransaction.remove(getSupportFragmentManager().findFragmentById(R.id.fragment_container));
+            fragmentTransaction.replace(R.id.fragment_container, new frag_add_student());
             fragmentTransaction.commit();
         }else if (id == R.id.nav_share) {
             Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();

@@ -19,8 +19,9 @@ import java.util.List;
  * Created by admin on 12-Mar-18.
  */
 
-public class frag_home extends Fragment implements frag_add.sendData {
+public class frag_home extends Fragment {
 
+    DBAdapter dbAdapter;
     private TextView frag_home_trialTextView;
     private expandableListAdapter listAdapter;
     private ExpandableListView expListView;
@@ -39,30 +40,29 @@ public class frag_home extends Fragment implements frag_add.sendData {
         frag_home_trialTextView = (TextView)v.findViewById(R.id.frag_home_trialTextView);
 
         expListView = (ExpandableListView)v.findViewById(R.id.frag_home_expandableLV);
-        prepareListData();
+
+        prepareNewListData();
+
         listAdapter = new expandableListAdapter(getContext(), listDataHeader, listDataChild);
         expListView.setAdapter(listAdapter);
-
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long l) {
                 Intent i;
-                switch(groupPosition){
-                    case 0:
-                        i = new Intent(getContext(), class_a.class);
+                i = new Intent(getContext(), class_a.class);
 
-                        // Fetch the class student details here and store it to a arraylist
-                        String[] str = {"a","b","c","d"};
+                DBAdapter_student dbAdapter_student = new DBAdapter_student(getContext());
+                dbAdapter_student.open();
+                dbAdapter_student.display(listDataHeader.get(groupPosition));
 
-                        i.putExtra("student_data", str);
-                        startActivity(i);
-                        break;
-                    case 1:
-                        i = new Intent(getContext(), class_a.class);
-                        startActivity(i);
-                        break;
+                String u = dbAdapter_student.classNameFromDB;
+                String q = dbAdapter_student.rollNumberFromDB;
 
-                }
+                i.putExtra("groupNumber", groupPosition);
+                i.putExtra("className", u);
+                i.putExtra("student_data", q);
+
+                startActivity(i);
 
                 Toast.makeText(getContext(), "" + listDataHeader.get(groupPosition) + " clicked!", Toast.LENGTH_LONG).show();
                 return false;
@@ -70,6 +70,7 @@ public class frag_home extends Fragment implements frag_add.sendData {
         });
         return v;
     }
+
 
     private void prepareListData() {
         listDataHeader = new ArrayList<String>();
@@ -141,10 +142,10 @@ public class frag_home extends Fragment implements frag_add.sendData {
         */
     }
 
-
-    @Override
-    public void data(String className, ArrayList<String> arrayList) {
-        listDataHeader.add(className);
-        listDataChild.put(listDataHeader.get(listDataHeader.indexOf(className)), arrayList);
+    private void prepareNewListData(){
+        dbAdapter = new DBAdapter(getContext());
+        dbAdapter.display();
+        listDataHeader = dbAdapter.listDataHeader;
+        listDataChild = dbAdapter.listDataChild;
     }
 }

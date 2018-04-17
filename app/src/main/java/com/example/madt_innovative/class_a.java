@@ -29,11 +29,16 @@ public class class_a extends AppCompatActivity{ //} implements RecyclerItemTouch
 
         Bundle bundle = getIntent().getExtras();
 
-        String[] a = bundle.getStringArray("student_data");
-        arrayList = new ArrayList<String>(Arrays.asList(a));
+        String[] rolls = bundle.getString("student_data").split(",");
+        String cn = bundle.getString("className");
+
+        //String[] a = bundle.getStringArray("student_data");
+        //arrayList = new ArrayList<String>(Arrays.asList(a));
 
         classA_tv = (TextView)findViewById(R.id.classA_tv);
         recyclerView = (RecyclerView)findViewById(R.id.classA_rv);
+
+        classA_tv.setText(cn);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         customAdapter = new CustomAdapter(this, new ArrayList<String>(Arrays.asList(str)));
