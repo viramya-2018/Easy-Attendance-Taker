@@ -3,6 +3,7 @@ package com.example.madt_innovative;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,12 @@ public class frag_add_student extends Fragment {
                 dbAdapter_student.close();
 
                 Toast.makeText(getContext(), "Saved to DB", Toast.LENGTH_SHORT).show();
+
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                if(getFragmentManager().findFragmentById(R.id.fragment_container) != null)
+                    fragmentTransaction.remove(getFragmentManager().findFragmentById(R.id.fragment_container));
+                fragmentTransaction.replace(R.id.fragment_container, new frag_home());
+                fragmentTransaction.commit();
             }
         });
         return v;

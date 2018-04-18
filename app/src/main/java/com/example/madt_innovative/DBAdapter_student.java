@@ -14,7 +14,7 @@ public class DBAdapter_student {
 
     public String classNameFromDB, rollNumberFromDB;
 
-    private static final String dbName = "innovative_madt";
+    private static final String dbName = "innovative_madt_student";
     private static final int dbVersion = 3;
     private static final String  tableName = "student_roll";
     private static final String className = "className";
@@ -28,7 +28,7 @@ public class DBAdapter_student {
             rollNumber + " text not null );";
 
     /*
-        create table classDetails (className text not null ,sectionName text not null ,numOfStudent text not null )
+        create table student_roll( className text not null , rollNumber text not null );
      */
     private SQLiteDatabase sqLiteDatabase;
     private Context context;
@@ -51,15 +51,15 @@ public class DBAdapter_student {
     public void display(String a){
         sqLiteDatabase = dbHelper.getReadableDatabase();
 
-        Cursor cursorEmployees = sqLiteDatabase.rawQuery("SELECT * FROM " + tableName, null);
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + tableName + " WHERE " + className + " = " + a + ";", null);
-        if (cursorEmployees.moveToFirst()) {
-            String cn = cursorEmployees.getString(0);
-            String rn = cursorEmployees.getString(1);
+        //Cursor cursorEmployees = sqLiteDatabase.rawQuery("SELECT * FROM " + tableName, null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + tableName + " WHERE " + className + " = '" + a + "';", null);
+        if (cursor.moveToFirst()) {
+            String cn = cursor.getString(0);
+            String rn = cursor.getString(1);
             classNameFromDB = cn;
             rollNumberFromDB = rn;
         }
-        cursorEmployees.close();
+        cursor.close();
     }
 
     public void delete(String delStr){

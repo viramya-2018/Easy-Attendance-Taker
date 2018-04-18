@@ -48,8 +48,7 @@ public class frag_home extends Fragment {
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long l) {
-                Intent i;
-                i = new Intent(getContext(), class_a.class);
+                Intent i = new Intent(getContext(), class_a.class);
 
                 DBAdapter_student dbAdapter_student = new DBAdapter_student(getContext());
                 dbAdapter_student.open();
@@ -80,14 +79,6 @@ public class frag_home extends Fragment {
         listDataHeader.add("Class A");
         listDataHeader.add("Class B");
         listDataHeader.add("Class C");
-        /*
-        listDataHeader.add("Class D");
-        listDataHeader.add("Class E");
-        listDataHeader.add("Class F");
-        listDataHeader.add("Class G");
-        listDataHeader.add("Class H");
-        listDataHeader.add("Class I");
-        */
 
         // Adding child data
         List<String> classA = new ArrayList<String>();
@@ -102,49 +93,16 @@ public class frag_home extends Fragment {
         classC.add("Section");
         classC.add("Total students");
 
-        /*
-        List<String> classD = new ArrayList<String>();
-        classD.add("Section");
-        classD.add("Total students");
-
-        List<String> classE = new ArrayList<String>();
-        classE.add("Section");
-        classE.add("Total students");
-
-        List<String> classF = new ArrayList<String>();
-        classF.add("Section");
-        classF.add("Total students");
-
-        List<String> classG = new ArrayList<String>();
-        classG.add("Section");
-        classG.add("Total students");
-
-        List<String> classH = new ArrayList<String>();
-        classH.add("Section");
-        classH.add("Total students");
-
-        List<String> classI = new ArrayList<String>();
-        classI.add("Section");
-        classI.add("Total students");
-        */
-
-
         listDataChild.put(listDataHeader.get(0), classA);
         listDataChild.put(listDataHeader.get(1), classB);
         listDataChild.put(listDataHeader.get(2), classC);
-        /*
-        listDataChild.put(listDataHeader.get(3), classD);
-        listDataChild.put(listDataHeader.get(4), classE);
-        listDataChild.put(listDataHeader.get(5), classF);
-        listDataChild.put(listDataHeader.get(6), classG);
-        listDataChild.put(listDataHeader.get(7), classH);
-        listDataChild.put(listDataHeader.get(8), classI);
-        */
     }
 
     private void prepareNewListData(){
         dbAdapter = new DBAdapter(getContext());
+        dbAdapter.open();
         dbAdapter.display();
+        dbAdapter.close();
         listDataHeader = dbAdapter.listDataHeader;
         listDataChild = dbAdapter.listDataChild;
     }
